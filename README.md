@@ -19,7 +19,7 @@ This example shows how to handle high load by using message queues. Basic workfl
 * Request is redirected to one of 4 frontend applications (project: gateway-service)
 * Request is put into ActiveMQ's message queue.
 * There are 4 backend applications (project: backend-service). They are waiting for messages to appear on message queue.
-* Once new message appears on the queue "messages", one of 4 backend applications will pick it up and handle it - print to the console.
+* Once new message appears on the queue "messages", one of 4 backend applications will pick it up and handle it - save to MongoDB database.
 
 This project works well as a demonstration of load balancing and message queues. Although you'd probably use something like [Kubernetes](https://kubernetes.io/) for your production system, instead of Docker Compose.
 
