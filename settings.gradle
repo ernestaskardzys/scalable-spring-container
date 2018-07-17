@@ -1,0 +1,4 @@
+rootProject.name = 'scalable-spring-container'
+include 'gateway-service'
+include 'backend-service'
+

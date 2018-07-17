@@ -1,0 +1,74 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.3.RELEASE")
+    }
+}
+
+plugins {
+    id 'java'
+}
+
+group 'info.ernestas'
+version '1.0-SNAPSHOT'
+
+allprojects {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    apply plugin: 'java'
+    apply plugin: 'idea'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    sourceSets {
+        integrationTest {
+            java {
+                compileClasspath += main.output + test.output
+                runtimeClasspath += main.output + test.output
+                srcDir file('src/integrationTest/java')
+            }
+            resources.srcDir file('src/integrationTest/resources')
+        }
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
+    configurations {
+        integrationTestCompile.extendsFrom testCompile
+        integrationTestRuntime.extendsFrom testRuntime
+    }
+
+    dependencies {
+        compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.8.0-beta2'
+        compile('org.springframework.boot:spring-boot-starter-actuator')
+
+        testCompile('org.springframework.boot:spring-boot-starter-test')
+        testCompile group: 'junit', name: 'junit', version: '4.12'
+        testCompile group: 'org.mockito', name: 'mockito-core', version: '2.18.3'
+    }
+
+    task integrationTest(type: Test) {
+        testClassesDirs = sourceSets.integrationTest.output.classesDirs
+        classpath = sourceSets.integrationTest.runtimeClasspath
+    }
+
+    check.dependsOn integrationTest
+    integrationTest.mustRunAfter test
+}
+
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = true
+}
+
+wrapper {
+    gradleVersion = '4.8.1'
+}

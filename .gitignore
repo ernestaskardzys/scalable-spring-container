@@ -1,0 +1,8 @@
+.gradle
+build
+.idea
+gateway-service/build
+backend-service/build
+**/out
+.git
+*.iml

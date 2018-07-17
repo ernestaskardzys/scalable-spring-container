@@ -1,0 +1,33 @@
+version: '3'
+services:
+  activemq-broker:
+    image: rmohr/activemq:latest
+    expose:
+      - 61616
+    ports:
+      - 8161:8161
+      - 61616:61616
+
+  gateway-service:
+    build: gateway-service
+    image: gateway-service:latest
+    environment:
+      - spring.activemq.broker-url=tcp://activemq-broker:61616?jms.redeliveryPolicy.maximumRedeliveries=1
+      - spring.activemq.user=admin
+      - spring.activemq.password=admin
+    ports:
+      - 8080:8080
+    depends_on:
+      - activemq-broker
+
+  backend-service:
+    build: backend-service
+    image: backend-service:latest
+    environment:
+      - spring.activemq.broker-url=tcp://activemq-broker:61616?jms.redeliveryPolicy.maximumRedeliveries=1
+      - spring.activemq.user=admin
+      - spring.activemq.password=admin
+    expose:
+      - 8080
+    depends_on:
+      - activemq-broker

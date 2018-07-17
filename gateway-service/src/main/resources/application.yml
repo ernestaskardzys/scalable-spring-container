@@ -1,0 +1,6 @@
+spring:
+  activemq:
+    broker-url: tcp://localhost:61616?jms.redeliveryPolicy.maximumRedeliveries=1
+    user: admin
+    password: admin
+
