@@ -27,17 +27,39 @@ services:
       - spring.activemq.broker-url=tcp://activemq-broker:61616?jms.redeliveryPolicy.maximumRedeliveries=1
       - spring.activemq.user=admin
       - spring.activemq.password=admin
+      - spring.data.mongodb.uri=mongodb://mongo/
+      - spring.data.mongodb.username=admin
+      - spring.data.mongodb.password=admin
+      - spring.data.mongodb.database=database
+      - spring.data.mongodb.port=27017
     expose:
       - 8080
     depends_on:
       - activemq-broker
+      - mongo
 
   nginx-load-balancer:
     build: nginx
     image: nginx-load-balancer:latest
     ports:
-      - "80:80"
+      - 80:80
     depends_on:
       - gateway-service
     links:
       - gateway-service
+
+  mongo:
+    image: mongo
+    restart: always
+    expose:
+      - 27017
+    ports:
+      - 27017:27017
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    depends_on:
+      - mongo

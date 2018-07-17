@@ -9,6 +9,7 @@ I have used the following technologies:
 * [Nginx](https://www.nginx.com/)
 * [Gradle](https://gradle.org/)
 * [ActiveMQ](http://activemq.apache.org/)
+* [MongoDB](https://www.mongodb.com/)
 
 ## Architecture
 This example shows how to handle high load by using message queues. Basic workflow is as follows:
@@ -34,8 +35,12 @@ Then simply send a POST request to the backend:
 ```bash
 $ curl --header "Content-Type: application/json" \
       --request POST \
-      --data '{ "id": "1", "name": "John Doe" }' \
+      --data '{ "name": "John Doe" }' \
       http://localhost/data
 ```
 
-You should see response in the console of Docker.
+You should see response in the console of Docker and data should be saved to the MongoDB.
+
+## MongoDB
+
+To see the database of MongoDB - please open http://localhost:8081/

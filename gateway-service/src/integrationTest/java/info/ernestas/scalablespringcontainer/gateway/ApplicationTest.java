@@ -41,7 +41,7 @@ public class ApplicationTest {
 
     @Test
     public void shouldProcessMessage() {
-        DataRequest dataRequest = new DataRequest("1", "John Doe");
+        DataRequest dataRequest = new DataRequest("John Doe");
 
         ResponseEntity<DataResponse> entity = restTemplate.postForEntity(MICROSERVICE_URL + servicePort + "/data", dataRequest, DataResponse.class);
 

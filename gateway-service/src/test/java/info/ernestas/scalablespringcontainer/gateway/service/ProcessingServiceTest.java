@@ -23,11 +23,12 @@ public class ProcessingServiceTest {
 
     @Test
     public void testProcess() {
-        DataRequest dataRequest = new DataRequest("1", "John Doe");
+        DataRequest dataRequest = new DataRequest("John Doe");
 
         String result = processingService.process(dataRequest);
 
         assertThat(result, is("OK"));
         verify(jmsTemplate).convertAndSend("messages", dataRequest);
     }
+
 }

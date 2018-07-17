@@ -14,6 +14,7 @@ import static org.mockito.Mockito.when;
 public class DataControllerTest {
 
     private static final String OK = "OK";
+
     private DataController dataController;
     private ProcessingService processingService;
 
@@ -25,7 +26,7 @@ public class DataControllerTest {
 
     @Test
     public void testSaveData() {
-        DataRequest dataRequest = new DataRequest("1", "John Doe");
+        DataRequest dataRequest = new DataRequest("John Doe");
         when(processingService.process(dataRequest)).thenReturn(OK);
 
         DataResponse response = dataController.saveData(dataRequest);

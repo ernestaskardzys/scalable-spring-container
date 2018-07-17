@@ -3,3 +3,11 @@ spring:
     broker-url: tcp://localhost:61616?jms.redeliveryPolicy.maximumRedeliveries=1
     user: admin
     password: admin
+
+  data:
+    mongodb:
+      uri: mongodb://localhost/
+      port: 27017
+      username: admin
+      password: admin
+      database: database
