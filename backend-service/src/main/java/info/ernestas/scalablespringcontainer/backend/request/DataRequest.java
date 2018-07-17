@@ -1,5 +1,8 @@
 package info.ernestas.scalablespringcontainer.backend.request;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 public class DataRequest {
 
     private final String id;
@@ -21,4 +24,13 @@ public class DataRequest {
     public String getName() {
         return name;
     }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this, ToStringStyle.JSON_STYLE)
+                .append("id", id)
+                .append("name", name)
+                .toString();
+    }
+
 }

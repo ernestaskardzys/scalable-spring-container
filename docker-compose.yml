@@ -15,8 +15,8 @@ services:
       - spring.activemq.broker-url=tcp://activemq-broker:61616?jms.redeliveryPolicy.maximumRedeliveries=1
       - spring.activemq.user=admin
       - spring.activemq.password=admin
-    ports:
-      - 8080:8080
+    expose:
+      - 8080
     depends_on:
       - activemq-broker
 
