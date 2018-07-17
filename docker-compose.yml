@@ -31,3 +31,13 @@ services:
       - 8080
     depends_on:
       - activemq-broker
+
+  nginx-load-balancer:
+    build: nginx
+    image: nginx-load-balancer:latest
+    ports:
+      - "80:80"
+    depends_on:
+      - gateway-service
+    links:
+      - gateway-service
