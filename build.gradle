@@ -15,8 +15,8 @@ group 'info.ernestas'
 version '1.0-SNAPSHOT'
 
 allprojects {
-    sourceCompatibility = 1.8
-    targetCompatibility = 1.8
+    sourceCompatibility = 11
+    targetCompatibility = 11
 
     apply plugin: 'java'
     apply plugin: 'idea'
@@ -75,5 +75,5 @@ jar {
 }
 
 wrapper {
-    gradleVersion = '4.8.1'
+    gradleVersion = '5.4'
 }
