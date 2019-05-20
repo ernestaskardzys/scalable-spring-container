@@ -1,4 +1,4 @@
-FROM java:8
+FROM openjdk:11-jdk-slim
 MAINTAINER Ernestas Kardzys <ernestas.kardzys@gmail.com>
 VOLUME /tmp
 ADD /build/libs/gateway-service.jar app.jar
