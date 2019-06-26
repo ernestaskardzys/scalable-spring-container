@@ -31,12 +31,20 @@ $ docker-compose build
 $ docker-compose up --scale gateway-service=4 --scale backend-service=4
 ```
 
+If you're running on Docker stack:
+
+```bash
+$ ./gradlew clean build
+$ docker-compose build
+$ docker stack deploy -c stack.yml cluster
+```
+
 Then simply send a POST request to the backend:
 ```bash
 $ curl --header "Content-Type: application/json" \
       --request POST \
       --data '{ "name": "John Doe" }' \
-      http://localhost/data
+      http://127.0.0.1/data
 ```
 
 You should see response in the console of Docker and data should be saved to the MongoDB.

@@ -1,0 +1,60 @@
+version: '3.7'
+services:
+  activemq-broker:
+    image: rmohr/activemq:latest
+    ports:
+      - 8161:8161
+      - 61616:61616
+
+  gateway-service:
+    image: gateway-service:latest
+    deploy:
+      replicas: 4
+    ports:
+      - 8080:8080
+    environment:
+      - spring.activemq.broker-url=tcp://activemq-broker:61616?jms.redeliveryPolicy.maximumRedeliveries=1
+      - spring.activemq.user=admin
+      - spring.activemq.password=admin
+
+  backend-service:
+    image: backend-service:latest
+    deploy:
+      replicas: 4
+    environment:
+      - spring.activemq.broker-url=tcp://activemq-broker:61616?jms.redeliveryPolicy.maximumRedeliveries=1
+      - spring.activemq.user=admin
+      - spring.activemq.password=admin
+      - spring.data.mongodb.uri=mongodb://mongo/
+      - spring.data.mongodb.username=admin
+      - spring.data.mongodb.password=admin
+      - spring.data.mongodb.database=database
+      - spring.data.mongodb.port=27017
+
+  nginx:
+    image: nginx:1.16.0
+    deploy:
+      replicas: 1
+    ports:
+      - 80:80
+    configs:
+      - source: nginx_config_1
+        target: /etc/nginx/nginx.conf
+
+  mongo:
+    image: mongo
+    deploy:
+      replicas: 1
+    ports:
+      - 27017:27017
+
+  mongo-express:
+    image: mongo-express
+    deploy:
+      replicas: 1
+    ports:
+      - 8081:8081
+
+configs:
+  nginx_config_1:
+    file: ./nginx/nginx.conf
